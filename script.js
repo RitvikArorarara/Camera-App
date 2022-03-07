@@ -63,9 +63,7 @@ captureBtn.addEventListener("click", function () {
 
   //top left to center
   tool.translate(canvas.width / 2, canvas.height / 2);
-  //zoom basically stretch kra canvas ko
   tool.scale(currZoom, currZoom);
-  //wapi top left pr leaye origin
   tool.translate(-canvas.width / 2, -canvas.height / 2);
 
   tool.drawImage(videoPlayer, 0, 0);
@@ -79,11 +77,6 @@ captureBtn.addEventListener("click", function () {
   canvas.remove();
 
   saveMedia(url);
-  // let a = document.createElement("a");
-  // a.href = url;
-  // a.download = "image.png";
-  // a.click();
-  // a.remove();
 });
 
 recordBtn.addEventListener("click", function () {
@@ -96,12 +89,10 @@ recordBtn.addEventListener("click", function () {
   filter = "";
 
   if (isRecording) {
-    //recording ko stop krna h
     mediaRecorder.stop();
     isRecording = false;
     innerSpan.classList.remove("record-animation");
   } else {
-    //recording shuru krni hai
     mediaRecorder.start();
     currZoom = 1;
     videoPlayer.style.transform = `scale(${currZoom})`;
@@ -118,7 +109,6 @@ let promiseToUseCamera = navigator.mediaDevices.getUserMedia({
 
 promiseToUseCamera
   .then(function (mediaStream) {
-    // lamen terms me mediaStream ek object hai jisme continously camera and mic ka input ara hai and wo input fir maine using objects video me dalra hu
     videoPlayer.srcObject = mediaStream;
 
     mediaRecorder = new MediaRecorder(mediaStream);
@@ -132,14 +122,6 @@ promiseToUseCamera
       chunks = [];
 
       saveMedia(blob);
-
-      // let link = URL.createObjectURL(blob); //kisi tarike se blob ki link bnadi h
-
-      // let a = document.createElement("a");
-      // a.href = link;
-      // a.download = "video.mp4";
-      // a.click();
-      // a.remove();
     });
   })
   .catch(function () {
